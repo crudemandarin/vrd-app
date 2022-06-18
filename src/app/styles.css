@@ -1,0 +1,11 @@
+.flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mx-2 {
+  margin-inline: 16px;
+}

@@ -3,20 +3,31 @@ import ReactDOM from "react-dom/client";
 
 import reportWebVitals from "./reportWebVitals";
 
-import App from "./App";
-
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
 import "./index.css";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import App from "./app/App";
+import Dashboard from "./app/screens/Dashboard";
+import TradeLogEntry from "./app/screens/TradeLogEntry";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="trade-logs" element={<TradeLogEntry />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
