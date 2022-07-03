@@ -1,0 +1,12 @@
+.header-banner {
+	padding-inline: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgb(200, 200, 200);
+}
+
+.title {
+	display: block;
+	margin-block: 1rem;
+}

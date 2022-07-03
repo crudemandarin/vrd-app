@@ -13,22 +13,22 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./app/App";
 import Dashboard from "./app/screens/Dashboard";
-import TradeLogEntry from "./app/screens/TradeLogEntry";
+import TradeEntry from "./app/screens/TradeEntry";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="trade-logs" element={<TradeLogEntry />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+	<React.StrictMode>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<App />}>
+					<Route path="dashboard" element={<Dashboard />} />
+					<Route path="trade-entry" element={<TradeEntry />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

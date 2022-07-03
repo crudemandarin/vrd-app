@@ -1,11 +1,43 @@
+/* Display */
+
 .flex {
-  display: flex;
+	display: flex;
+}
+
+/* Flex */
+
+.flex-wrap {
+	flex-wrap: wrap;
 }
 
 .align-items-center {
-  align-items: center;
+	align-items: center;
 }
 
+/* Margin */
+
 .mx-2 {
-  margin-inline: 16px;
+	margin-inline: 16px;
+}
+
+.mr-2 {
+	margin-right: 1rem;
+}
+
+.my-2 {
+	margin-block: 1rem;
+}
+
+.mt-1 {
+	margin-top: 0.5rem;
+}
+
+/* Spacer */
+
+.s-1 {
+	padding: 0.25rem;
+}
+
+.s-2 {
+	padding: 0.5rem;
 }

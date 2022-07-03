@@ -1,0 +1,7 @@
+.form-input-container {
+	width: 200px;
+}
+
+.form-input-container > div {
+	margin-block: 0.5rem;
+}
