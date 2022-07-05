@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntry";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryModel";
 
 interface Props {
 	trades: TradeEntryFormModel[];

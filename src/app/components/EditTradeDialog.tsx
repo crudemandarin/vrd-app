@@ -12,12 +12,12 @@ import {
 } from "../forms/trade-entry/TradeEntryModel";
 
 interface Props {
-	stageTrade: (data: TradeEntryFormModel) => void;
+	updateTrade: (data: TradeEntryFormModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
 
-const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
+const EditTradeDialog = ({ updateTrade, visible, setVisible }: Props) => {
 	const { formState, handleSubmit, reset, control } =
 		useForm<TradeEntryFormModel>({
 			defaultValues: TradeEntryFormDefaults
@@ -27,7 +27,7 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 	const onHide = () => setVisible(false);
 
 	const onSubmit = (data: TradeEntryFormModel) => {
-		stageTrade(data);
+		updateTrade(data);
 		setVisible(false);
 		reset();
 	};
@@ -42,11 +42,11 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 	const footer = (
 		<>
 			<Button
-				label="Add"
-				icon="pi pi-plus"
+				label="Edit"
+				icon="pi pi-cog"
 				type="submit"
 				disabled={isSubmitting}
-				className="p-button-success p-button-sm"
+				className="p-button-warning p-button-sm"
 				onClick={handleSubmit(onSubmit)}
 			/>
 			<Button
@@ -67,7 +67,7 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 
 	return (
 		<Dialog
-			header="Add Trade to Stage"
+			header="Edit Trade"
 			footer={footer}
 			visible={visible}
 			onHide={onHide}
@@ -78,4 +78,4 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 	);
 };
 
-export default AddTradeDialog;
+export default EditTradeDialog;

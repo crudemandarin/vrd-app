@@ -2,18 +2,25 @@ import { useState } from "react";
 
 import { Button } from "primereact/button";
 
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntry";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryModel";
 import TradeTable from "../components/TradeTable";
 import AddTradeDialog from "../components/AddTradeDialog";
+import EditTradeDialog from "../components/EditTradeDialog";
 
 const TradeEntry = () => {
 	const [trades, setTrades] = useState<TradeEntryFormModel[]>([]);
 	const [addDialog, setAddDialog] = useState(false);
+	const [editDialog, setEditDialog] = useState(false);
 
 	const stageTrade = (trade: TradeEntryFormModel) =>
 		setTrades([...trades, trade]);
 
+	const updateTrade = (trade: TradeEntryFormModel) => {
+		console.log("update trade", trade);
+	};
+
 	const onAddTradeClick = () => setAddDialog(true);
+	const onEditTradeClick = () => setEditDialog(true);
 
 	return (
 		<main>
@@ -23,11 +30,20 @@ const TradeEntry = () => {
 
 			<div className="s-2" />
 
-			<Button
-				label="Add Trade"
-				onClick={onAddTradeClick}
-				className="p-button-sm p-button-secondary"
-			/>
+			<div className="flex">
+				<Button
+					label="Add Trade"
+					onClick={onAddTradeClick}
+					className="p-button-sm p-button-secondary"
+				/>
+				<div className="s-1" />
+				<Button
+					label="Edit Trade"
+					onClick={onEditTradeClick}
+					className="p-button-sm p-button-secondary"
+				/>
+			</div>
+
 			<div className="s-1" />
 			<TradeTable trades={trades} />
 
@@ -39,6 +55,12 @@ const TradeEntry = () => {
 				stageTrade={stageTrade}
 				visible={addDialog}
 				setVisible={setAddDialog}
+			/>
+
+			<EditTradeDialog
+				updateTrade={updateTrade}
+				visible={editDialog}
+				setVisible={setEditDialog}
 			/>
 		</main>
 	);
