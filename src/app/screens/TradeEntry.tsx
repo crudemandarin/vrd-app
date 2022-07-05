@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import { Button } from "primereact/button";
 
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeLog";
-import TradeTable from "../components/trade-table/TradeTable";
-import AddTradeDialog from "../components/add-trade-dialog/AddTradeDialog";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntry";
+import TradeTable from "../components/TradeTable";
+import AddTradeDialog from "../components/AddTradeDialog";
 
 const TradeEntry = () => {
 	const [trades, setTrades] = useState<TradeEntryFormModel[]>([]);

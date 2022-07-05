@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 
-import "./styles.css";
+import "./styles/styles.css";
 
-import Header from "./components/header/Header";
+import Header from "./components/Header";
 
 const App = () => {
 	return (

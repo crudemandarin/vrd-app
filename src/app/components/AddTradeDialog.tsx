@@ -2,8 +2,8 @@ import React from "react";
 
 import { Dialog } from "primereact/dialog";
 
-import TradeEntryForm from "../../forms/trade-entry/TradeEntryForm";
-import { TradeEntryFormModel } from "../../forms/trade-entry/TradeLog";
+import TradeEntryForm from "../forms/trade-entry/TradeEntryForm";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntry";
 
 interface Props {
 	stageTrade: (data: TradeEntryFormModel) => void;

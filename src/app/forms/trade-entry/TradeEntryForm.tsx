@@ -1,9 +1,9 @@
 import { useForm, Controller } from "react-hook-form";
 
-import { TradeEntryFormModel, TradeEntryFormDefaults } from "./TradeLog";
-
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+
+import { TradeEntryFormModel, TradeEntryFormDefaults } from "./TradeEntry";
 
 import "./trade-entry-styles.css";
 
