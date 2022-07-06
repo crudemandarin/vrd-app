@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -6,23 +6,28 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
 import TradeEntryForm from "../forms/trade-entry/TradeEntryForm";
-import {
-	TradeEntryFormDefaults,
-	TradeEntryFormModel
-} from "../forms/trade-entry/TradeEntryModel";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryModel";
 
 interface Props {
+	trade: TradeEntryFormModel;
 	updateTrade: (data: TradeEntryFormModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
 
-const EditTradeDialog = ({ updateTrade, visible, setVisible }: Props) => {
+const EditTradeDialog = ({
+	trade,
+	updateTrade,
+	visible,
+	setVisible
+}: Props) => {
 	const { formState, handleSubmit, reset, control } =
 		useForm<TradeEntryFormModel>({
-			defaultValues: TradeEntryFormDefaults
+			defaultValues: trade
 		});
 	const { errors, isSubmitting } = formState;
+
+	useEffect(() => reset(trade), [trade]);
 
 	const onHide = () => setVisible(false);
 

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
@@ -7,13 +5,13 @@ import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryModel";
 
 interface Props {
 	trades: TradeEntryFormModel[];
+	selected: TradeEntryFormModel | undefined;
+	setSelected: (
+		value: React.SetStateAction<TradeEntryFormModel | undefined>
+	) => void;
 }
 
-const TradeTable = ({ trades }: Props) => {
-	const [selected, setSelected] = useState<TradeEntryFormModel | undefined>(
-		undefined
-	);
-
+const TradeTable = ({ trades, selected, setSelected }: Props) => {
 	const columns = [
 		{ field: "dealDate", header: "Deal Date" },
 		{ field: "commodity", header: "Commodity" },
@@ -28,7 +26,12 @@ const TradeTable = ({ trades }: Props) => {
 
 	return (
 		<>
-			<DataTable value={trades} selection={selected} selectionMode="single">
+			<DataTable
+				value={trades}
+				selection={selected}
+				selectionMode="single"
+				onSelectionChange={(e) => setSelected(e.value)}
+			>
 				{renderColumns()}
 			</DataTable>
 		</>

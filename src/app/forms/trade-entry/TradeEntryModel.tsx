@@ -1,4 +1,5 @@
 export interface TradeEntryFormModel {
+	dealId: string;
 	dealDate: string;
 	commodity: string;
 	dealType: string;
@@ -6,7 +7,6 @@ export interface TradeEntryFormModel {
 	market: string;
 	settlementMarket: string;
 	traderName: string;
-	// dealId: string;
 	transaction: string;
 	counterParty: string;
 	otherCounterParty: string;
@@ -26,6 +26,7 @@ export interface TradeEntryFormModel {
 }
 
 export const TradeEntryFormDefaults = {
+	dealId: "",
 	dealDate: "",
 	commodity: "",
 	dealType: "",
@@ -33,7 +34,6 @@ export const TradeEntryFormDefaults = {
 	market: "",
 	settlementMarket: "",
 	traderName: "",
-	dealId: "",
 	transaction: "",
 	counterParty: "",
 	otherCounterParty: "",
@@ -53,6 +53,7 @@ export const TradeEntryFormDefaults = {
 };
 
 export const TradeLogNames = {
+	dealId: "Deal ID",
 	dealDate: "Deal Date",
 	dealType: "Deal Type",
 	settlementType: "Settlement Type",

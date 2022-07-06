@@ -9,18 +9,44 @@ import EditTradeDialog from "../components/EditTradeDialog";
 
 const TradeEntry = () => {
 	const [trades, setTrades] = useState<TradeEntryFormModel[]>([]);
-	const [addDialog, setAddDialog] = useState(false);
-	const [editDialog, setEditDialog] = useState(false);
+
+	const [addDialogVisible, setAddDialogVisible] = useState(false);
+	const [editDialogVisible, setEditDialogVisible] = useState(false);
+
+	const [selectedTrade, setSelectedTrade] = useState<
+		TradeEntryFormModel | undefined
+	>(undefined);
 
 	const stageTrade = (trade: TradeEntryFormModel) =>
 		setTrades([...trades, trade]);
 
-	const updateTrade = (trade: TradeEntryFormModel) => {
-		console.log("update trade", trade);
+	const updateTrade = (update: TradeEntryFormModel) => {
+		console.log("update trade", update);
+
+		const updateIndex = trades.findIndex(
+			(trade) => trade.dealId === update.dealId
+		);
+		const updatedTrades = [...trades];
+		updatedTrades[updateIndex] = update;
+
+		setTrades(updatedTrades);
 	};
 
-	const onAddTradeClick = () => setAddDialog(true);
-	const onEditTradeClick = () => setEditDialog(true);
+	const onAddTradeClick = () => setAddDialogVisible(true);
+
+	const onEditTradeClick = () => setEditDialogVisible(true);
+
+	const renderEditDialog = () => {
+		if (!selectedTrade) return undefined;
+		return (
+			<EditTradeDialog
+				trade={selectedTrade}
+				updateTrade={updateTrade}
+				visible={editDialogVisible}
+				setVisible={setEditDialogVisible}
+			/>
+		);
+	};
 
 	return (
 		<main>
@@ -45,7 +71,11 @@ const TradeEntry = () => {
 			</div>
 
 			<div className="s-1" />
-			<TradeTable trades={trades} />
+			<TradeTable
+				trades={trades}
+				selected={selectedTrade}
+				setSelected={setSelectedTrade}
+			/>
 
 			<div className="s-2" />
 
@@ -53,15 +83,11 @@ const TradeEntry = () => {
 
 			<AddTradeDialog
 				stageTrade={stageTrade}
-				visible={addDialog}
-				setVisible={setAddDialog}
+				visible={addDialogVisible}
+				setVisible={setAddDialogVisible}
 			/>
 
-			<EditTradeDialog
-				updateTrade={updateTrade}
-				visible={editDialog}
-				setVisible={setEditDialog}
-			/>
+			{renderEditDialog()}
 		</main>
 	);
 };

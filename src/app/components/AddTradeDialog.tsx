@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
+
+import { v4 } from "uuid";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -18,13 +20,18 @@ interface Props {
 }
 
 const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
-	const { formState, handleSubmit, reset, control } =
+	const { formState, setValue, handleSubmit, reset, control } =
 		useForm<TradeEntryFormModel>({
 			defaultValues: TradeEntryFormDefaults
 		});
 	const { errors, isSubmitting } = formState;
 
-	const onHide = () => setVisible(false);
+	useEffect(() => setValue("dealId", v4()));
+
+	const onHide = () => {
+		setVisible(false);
+		reset();
+	};
 
 	const onSubmit = (data: TradeEntryFormModel) => {
 		stageTrade(data);
