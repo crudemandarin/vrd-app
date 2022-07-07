@@ -2,8 +2,9 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 
 import { InputText } from "primereact/inputtext";
 
+import { TradeEntryFormModel } from "./TradeEntryInfo";
+
 import "../../styles/form-styles.css";
-import { TradeEntryFormModel } from "./TradeEntryModel";
 
 interface Props {
 	control: Control<TradeEntryFormModel>;

@@ -1,7 +1,7 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryModel";
+import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryInfo";
 
 interface Props {
 	trades: TradeEntryFormModel[];

@@ -1,5 +1,6 @@
 .form-input-container {
-	width: 200px;
+	display: block;
+	width: 275px;
 }
 
 .form-input-container > div {
