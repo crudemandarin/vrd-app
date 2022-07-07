@@ -5,13 +5,13 @@ import { useForm } from "react-hook-form";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import Util from "../utils/Util";
+import Util from "../../utils/Util";
 
-import TradeEntryForm from "../forms/trade-entry/TradeEntryForm";
+import TradeEntryForm from "../../forms/trade-entry/TradeEntryForm";
 import {
 	TradeEntryFormDefaults,
 	TradeEntryFormModel
-} from "../forms/trade-entry/TradeEntryInfo";
+} from "../../forms/trade-entry/TradeEntryInfo";
 
 interface Props {
 	stageTrade: (data: TradeEntryFormModel) => void;

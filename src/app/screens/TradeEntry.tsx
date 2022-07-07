@@ -4,8 +4,8 @@ import { Button } from "primereact/button";
 
 import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryInfo";
 import TradeTable from "../components/TradeTable";
-import AddTradeDialog from "../components/AddTradeDialog";
-import EditTradeDialog from "../components/EditTradeDialog";
+import AddTradeDialog from "../components/dialog/AddTradeDialog";
+import EditTradeDialog from "../components/dialog/EditTradeDialog";
 
 import Util from "../utils/Util";
 

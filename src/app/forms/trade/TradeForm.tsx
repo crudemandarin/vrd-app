@@ -6,11 +6,7 @@ import {
 	UseFormWatch
 } from "react-hook-form";
 
-import {
-	TradeModel,
-	TRADE_FIELD_NAMES,
-	TRADE_INFO
-} from "../trade-entry/TradeEntryInfo";
+import { TradeModel, TRADE_INFO } from "../trade-entry/TradeEntryInfo";
 
 import "../../styles/form-styles.css";
 import FormTextInput from "./FormTextInput";
@@ -36,7 +32,7 @@ const TradeForm = ({ watch, getValues, setValue, control, errors }: Props) => {
 							key={info.id}
 							id={info.id}
 							options={info.options}
-							label={TRADE_FIELD_NAMES[info.id]}
+							label={info.label}
 							control={control}
 							errors={errors}
 						/>
@@ -51,7 +47,7 @@ const TradeForm = ({ watch, getValues, setValue, control, errors }: Props) => {
 							key={info.id}
 							id={info.id}
 							options={options}
-							label={TRADE_FIELD_NAMES[info.id]}
+							label={info.label}
 							control={control}
 							errors={errors}
 						/>
@@ -63,7 +59,7 @@ const TradeForm = ({ watch, getValues, setValue, control, errors }: Props) => {
 						<FormDateInput
 							key={info.id}
 							id={info.id}
-							label={TRADE_FIELD_NAMES[info.id]}
+							label={info.label}
 							watch={watch}
 							getValues={getValues}
 							setValue={setValue}
@@ -76,7 +72,7 @@ const TradeForm = ({ watch, getValues, setValue, control, errors }: Props) => {
 					<FormTextInput
 						key={info.id}
 						id={info.id}
-						label={TRADE_FIELD_NAMES[info.id]}
+						label={info.label}
 						control={control}
 						errors={errors}
 					/>

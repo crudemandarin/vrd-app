@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import TradeEntryForm from "../forms/trade-entry/TradeEntryForm";
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryInfo";
+import TradeEntryForm from "../../forms/trade-entry/TradeEntryForm";
+import { TradeEntryFormModel } from "../../forms/trade-entry/TradeEntryInfo";
 
 interface Props {
 	trade: TradeEntryFormModel;
