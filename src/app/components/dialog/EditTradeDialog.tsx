@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import TradeEntryForm from "../../forms/trade-entry/TradeEntryForm";
-import { TradeEntryFormModel } from "../../forms/trade-entry/TradeEntryInfo";
+import { TradeModel } from "../../models/trade.model";
+import TradeForm from "../forms/trade/TradeForm";
 
 interface Props {
-	trade: TradeEntryFormModel;
-	updateTrade: (data: TradeEntryFormModel) => void;
+	trade: TradeModel;
+	updateTrade: (data: TradeModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
@@ -21,17 +21,24 @@ const EditTradeDialog = ({
 	visible,
 	setVisible
 }: Props) => {
-	const { formState, handleSubmit, reset, control } =
-		useForm<TradeEntryFormModel>({
-			defaultValues: trade
-		});
+	const {
+		formState,
+		watch,
+		getValues,
+		setValue,
+		handleSubmit,
+		reset,
+		control
+	} = useForm<TradeModel>({
+		defaultValues: trade
+	});
 	const { errors, isSubmitting } = formState;
 
 	useEffect(() => reset(trade), [trade]);
 
 	const onHide = () => setVisible(false);
 
-	const onSubmit = (data: TradeEntryFormModel) => {
+	const onSubmit = (data: TradeModel) => {
 		updateTrade(data);
 		setVisible(false);
 		reset();
@@ -76,9 +83,16 @@ const EditTradeDialog = ({
 			footer={footer}
 			visible={visible}
 			onHide={onHide}
-			style={{ width: "860px" }}
+			style={{ width: "900px" }}
 		>
-			<TradeEntryForm control={control} errors={errors} />
+			<TradeForm
+				watch={watch}
+				getValues={getValues}
+				setValue={setValue}
+				reset={reset}
+				control={control}
+				errors={errors}
+			/>
 		</Dialog>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -6,44 +6,48 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
 import Util from "../../utils/Util";
-
-import TradeEntryForm from "../../forms/trade-entry/TradeEntryForm";
-import {
-	TradeEntryFormDefaults,
-	TradeEntryFormModel
-} from "../../forms/trade-entry/TradeEntryInfo";
+import { TradeModel } from "../../models/trade.model";
+import TradeService from "../../services/trade.service";
+import TradeForm from "../forms/trade/TradeForm";
 
 interface Props {
-	stageTrade: (data: TradeEntryFormModel) => void;
+	stageTrade: (data: TradeModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
 
 const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
-	const { formState, setValue, handleSubmit, reset, control } =
-		useForm<TradeEntryFormModel>({
-			defaultValues: TradeEntryFormDefaults
-		});
+	const {
+		formState,
+		watch,
+		getValues,
+		setValue,
+		handleSubmit,
+		reset,
+		control
+	} = useForm<TradeModel>({
+		defaultValues: TradeService.getFormDefaults()
+	});
 	const { errors, isSubmitting } = formState;
 
-	useEffect(() => setValue("dealId", Util.generateId()));
+	useEffect(() => setValue("id", Util.generateId()), [visible]);
 
 	const onHide = () => {
 		setVisible(false);
-		reset();
+		reset(TradeService.getFormDefaults());
 	};
 
-	const onSubmit = (data: TradeEntryFormModel) => {
+	const onSubmit = (data: TradeModel) => {
 		stageTrade(data);
 		setVisible(false);
-		reset();
+		reset(TradeService.getFormDefaults());
 	};
 
-	const onReset = () => reset();
+	const onReset = () => reset(TradeService.getFormDefaults());
 
 	const onCancel = () => {
 		setVisible(false);
-		reset();
+		reset(TradeService.getFormDefaults());
 	};
 
 	const footer = (
@@ -78,9 +82,16 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 			footer={footer}
 			visible={visible}
 			onHide={onHide}
-			style={{ width: "860px" }}
+			style={{ width: "900px" }}
 		>
-			<TradeEntryForm control={control} errors={errors} />
+			<TradeForm
+				watch={watch}
+				getValues={getValues}
+				setValue={setValue}
+				reset={reset}
+				control={control}
+				errors={errors}
+			/>
 		</Dialog>
 	);
 };

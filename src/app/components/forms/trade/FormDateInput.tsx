@@ -9,7 +9,8 @@ import {
 
 import { Calendar, CalendarChangeParams } from "primereact/calendar";
 
-import { TradeModel } from "../trade-entry/TradeEntryInfo";
+import Util from "../../../utils/Util";
+import { TradeModel } from "../../../models/trade.model";
 
 interface Props {
 	id: keyof TradeModel;
@@ -39,14 +40,15 @@ const FormDateInput = ({
 	}, [watch(id)]);
 
 	const onChange = (event: CalendarChangeParams) => {
-		setValue(id, event.value?.toLocaleString() ?? "");
+		if (!(event.value instanceof Date)) return;
+		setValue(id, Util.dateToString(event.value));
 	};
 
 	return (
 		<div className="form-input-container">
 			<label>{label}</label>
 			<div>
-				<Calendar value={localValue} onChange={onChange} />
+				<Calendar value={localValue} onChange={onChange} showIcon />
 			</div>
 			<small className="p-error block">{errors[id]?.message}</small>
 		</div>

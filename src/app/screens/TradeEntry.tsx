@@ -2,35 +2,31 @@ import { useState } from "react";
 
 import { Button } from "primereact/button";
 
-import { TradeEntryFormModel } from "../forms/trade-entry/TradeEntryInfo";
-import TradeTable from "../components/TradeTable";
 import AddTradeDialog from "../components/dialog/AddTradeDialog";
 import EditTradeDialog from "../components/dialog/EditTradeDialog";
 
 import Util from "../utils/Util";
 
+import BasicTable from "../components/BasicTable";
+import { TradeModel } from "../models/trade.model";
+import TradeService from "../services/trade.service";
+
 const TradeEntry = () => {
-	const [trades, setTrades] = useState<TradeEntryFormModel[]>([]);
+	const [trades, setTrades] = useState<TradeModel[]>([]);
 
 	const [addDialogVisible, setAddDialogVisible] = useState(false);
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
-	const [selectedTrade, setSelectedTrade] = useState<
-		TradeEntryFormModel | undefined
-	>(undefined);
+	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
+		undefined
+	);
 
-	const stageTrade = (trade: TradeEntryFormModel) =>
-		setTrades([...trades, trade]);
+	const stageTrade = (trade: TradeModel) => setTrades([...trades, trade]);
 
-	const updateTrade = (update: TradeEntryFormModel) => {
-		console.log("update trade", update);
-
-		const updateIndex = trades.findIndex(
-			(trade) => trade.dealId === update.dealId
-		);
+	const updateTrade = (update: TradeModel) => {
+		const updateIndex = trades.findIndex((trade) => trade.id === update.id);
 		const updatedTrades = [...trades];
 		updatedTrades[updateIndex] = update;
-
 		setTrades(updatedTrades);
 	};
 
@@ -41,7 +37,7 @@ const TradeEntry = () => {
 	const onDuplicateTradeClick = () => {
 		if (!selectedTrade) return;
 		const updateTrade = { ...selectedTrade };
-		updateTrade.dealId = Util.generateId();
+		updateTrade.id = Util.generateId();
 		const updatedTrades = [...trades, updateTrade];
 		setTrades(updatedTrades);
 		setSelectedTrade(undefined);
@@ -50,7 +46,7 @@ const TradeEntry = () => {
 	const onDeleteTradeClick = () => {
 		if (!selectedTrade) return;
 		const updatedTrades = trades.filter(
-			(trade) => trade.dealId != selectedTrade.dealId
+			(trade) => trade.id != selectedTrade.id
 		);
 		setTrades(updatedTrades);
 		setSelectedTrade(undefined);
@@ -106,8 +102,9 @@ const TradeEntry = () => {
 			</div>
 
 			<div className="s-1" />
-			<TradeTable
-				trades={trades}
+			<BasicTable
+				rows={trades}
+				columns={TradeService.getColumns()}
 				selected={selectedTrade}
 				setSelected={setSelectedTrade}
 			/>

@@ -1,6 +1,8 @@
-import { InputText } from "primereact/inputtext";
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { TradeModel } from "../trade-entry/TradeEntryInfo";
+
+import { InputText } from "primereact/inputtext";
+
+import { TradeModel } from "../../../models/trade.model";
 
 interface Props {
 	id: keyof TradeModel;

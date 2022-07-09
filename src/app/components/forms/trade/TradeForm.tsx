@@ -1,31 +1,51 @@
+import { useEffect, useMemo } from "react";
+
 import {
 	Control,
 	FieldErrors,
 	UseFormGetValues,
+	UseFormReset,
 	UseFormSetValue,
 	UseFormWatch
 } from "react-hook-form";
 
-import { TradeModel, TRADE_INFO } from "../trade-entry/TradeEntryInfo";
+import { TradeModel } from "../../../models/trade.model";
+import TradeService from "../../../services/trade.service";
 
-import "../../styles/form-styles.css";
 import FormTextInput from "./FormTextInput";
 import FormAutoSelect from "./FormAutoSelect";
-import { useMemo } from "react";
 import FormDateInput from "./FormDateInput";
+
+import "../../../styles/form-styles.css";
 
 interface Props {
 	watch: UseFormWatch<TradeModel>;
 	getValues: UseFormGetValues<TradeModel>;
 	setValue: UseFormSetValue<TradeModel>;
+	reset: UseFormReset<TradeModel>;
 	control: Control<TradeModel>;
 	errors: FieldErrors<TradeModel>;
 }
 
-const TradeForm = ({ watch, getValues, setValue, control, errors }: Props) => {
+const TradeForm = ({
+	watch,
+	getValues,
+	setValue,
+	reset,
+	control,
+	errors
+}: Props) => {
+	useEffect(() => {
+		reset({ ...getValues(), contractName: "" });
+	}, [watch("commodity")]);
+
+	useEffect(() => {
+		reset({ ...getValues(), settlementLocation: "" });
+	}, [watch("market")]);
+
 	const renderedInputs = useMemo(
 		() =>
-			TRADE_INFO.map((info) => {
+			TradeService.getFormFields().map((info) => {
 				if (info.options) {
 					return (
 						<FormAutoSelect
