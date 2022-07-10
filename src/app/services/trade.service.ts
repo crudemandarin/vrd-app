@@ -1,7 +1,7 @@
 import { FormField } from "../models/form.model";
 import { TradeModel } from "../models/trade.model";
 
-const TRADE_INFO: FormField<TradeModel>[] = [
+const FORM_FIELDS: FormField<TradeModel>[] = [
 	{
 		id: "id",
 		label: "Trade ID"
@@ -118,7 +118,7 @@ const TRADE_INFO: FormField<TradeModel>[] = [
 	}
 ];
 
-const TRADE_DEFAULTS = {
+const FORM_DEFAULTS = {
 	id: "",
 	date: "",
 	type: "",
@@ -142,7 +142,7 @@ const TRADE_DEFAULTS = {
 	strike: 0
 };
 
-const TRADE_COLUMNS = [
+const COLUMNS = [
 	{ field: "id", header: "Trade ID" },
 	{ field: "date", header: "Trade Date" },
 	{ field: "type", header: "Trade Type" },
@@ -166,17 +166,34 @@ const TRADE_COLUMNS = [
 	{ field: "strike", header: "Strike" }
 ];
 
+const DEFAULT_COLUMNS = [
+	{ field: "date", header: "Trade Date" },
+	{ field: "market", header: "Market" },
+	{ field: "commodity", header: "Commodity" },
+	{ field: "contractName", header: "Contract Name" },
+	{ field: "settlementMarket", header: "Settlement Market" },
+	{ field: "settlementLocation", header: "Settlement Location" },
+	{ field: "transaction", header: "Transaction" },
+	{ field: "volume", header: "Volume" },
+	{ field: "price", header: "Price" },
+	{ field: "strike", header: "Strike" }
+];
+
 class TradeService {
 	static getFormFields(): FormField<TradeModel>[] {
-		return TRADE_INFO;
+		return FORM_FIELDS;
 	}
 
 	static getFormDefaults(): TradeModel {
-		return TRADE_DEFAULTS;
+		return FORM_DEFAULTS;
 	}
 
 	static getColumns() {
-		return TRADE_COLUMNS;
+		return COLUMNS;
+	}
+
+	static getDefaultColumns() {
+		return DEFAULT_COLUMNS;
 	}
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
 	Control,
@@ -10,6 +10,7 @@ import {
 } from "react-hook-form";
 
 import { TradeModel } from "../../../models/trade.model";
+import { FormField } from "../../../models/form.model";
 import TradeService from "../../../services/trade.service";
 
 import FormTextInput from "./FormTextInput";
@@ -35,12 +36,30 @@ const TradeForm = ({
 	control,
 	errors
 }: Props) => {
+	const [fields] = useState<FormField<TradeModel>[]>(
+		TradeService.getFormFields()
+	);
+
+	// Reset `contractName` if option not valid with `commodity`
 	useEffect(() => {
-		reset({ ...getValues(), contractName: "" });
+		const key = getValues("commodity");
+		const field = fields.filter((f) => f.id === "contractName")[0];
+		if (!key || !field.cond) return reset({ ...getValues(), contractName: "" });
+		const options = field.cond.options[key];
+		const value = getValues("contractName");
+		if (!options.includes(value)) reset({ ...getValues(), contractName: "" });
 	}, [watch("commodity")]);
 
+	// Reset `settlementLocation` if option not valid with `market`
 	useEffect(() => {
-		reset({ ...getValues(), settlementLocation: "" });
+		const key = getValues("market");
+		const field = fields.filter((f) => f.id === "settlementLocation")[0];
+		if (!key || !field.cond)
+			return reset({ ...getValues(), settlementLocation: "" });
+		const options = field.cond.options[key];
+		const value = getValues("settlementLocation");
+		if (!options.includes(value))
+			reset({ ...getValues(), settlementLocation: "" });
 	}, [watch("market")]);
 
 	const renderedInputs = useMemo(

@@ -105,6 +105,7 @@ const TradeEntry = () => {
 			<BasicTable
 				rows={trades}
 				columns={TradeService.getColumns()}
+				defaultColumns={TradeService.getDefaultColumns()}
 				selected={selectedTrade}
 				setSelected={setSelectedTrade}
 			/>
