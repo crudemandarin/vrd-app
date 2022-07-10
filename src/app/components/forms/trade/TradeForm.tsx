@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
 	Control,
@@ -62,9 +62,9 @@ const TradeForm = ({
 			reset({ ...getValues(), settlementLocation: "" });
 	}, [watch("market")]);
 
-	const renderedInputs = useMemo(
-		() =>
-			TradeService.getFormFields().map((info) => {
+	return (
+		<form className="flex flex-wrap">
+			{TradeService.getFormFields().map((info) => {
 				if (info.options) {
 					return (
 						<FormAutoSelect
@@ -116,11 +116,9 @@ const TradeForm = ({
 						errors={errors}
 					/>
 				);
-			}),
-		[watch("commodity"), watch("market")]
+			})}
+		</form>
 	);
-
-	return <form className="flex flex-wrap">{renderedInputs}</form>;
 };
 
 export default TradeForm;

@@ -1,8 +1,9 @@
 .form-input-container {
 	display: block;
 	width: 275px;
+	margin-bottom: 0.5rem;
 }
 
 .form-input-container > div {
-	margin-block: 0.5rem;
+	margin-top: 0.5rem;
 }

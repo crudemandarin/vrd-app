@@ -1,11 +1,13 @@
+import * as yup from "yup";
+
 import { FormField } from "../models/form.model";
 import { TradeModel } from "../models/trade.model";
 
 const FORM_FIELDS: FormField<TradeModel>[] = [
-	{
-		id: "id",
-		label: "Trade ID"
-	},
+	// {
+	// 	id: "id",
+	// 	label: "Trade ID"
+	// },
 	{
 		id: "date",
 		label: "Trade Date",
@@ -142,6 +144,30 @@ const FORM_DEFAULTS = {
 	strike: 0
 };
 
+const FORM_SCHEMA = yup.object().shape({
+	id: yup.string().required(),
+	date: yup.string().required(),
+	type: yup.string().required(),
+	market: yup.string().required(),
+	commodity: yup.string().required(),
+	contractName: yup.string().required(),
+	settlementType: yup.string().required(),
+	settlementMarket: yup.string().required(),
+	traderName: yup.string().required(),
+	counterParty: yup.string(),
+	otherCounterParty: yup.string(),
+	settlementPoint: yup.string().required(),
+	settlementLocation: yup.string().required(),
+	book: yup.string(),
+	transaction: yup.string().required(),
+	deliveryDateStart: yup.string(),
+	deliveryDateEnd: yup.string(),
+	volume: yup.number().required(),
+	price: yup.number().required(),
+	fee: yup.number().required(),
+	strike: yup.number().required()
+});
+
 const COLUMNS = [
 	{ field: "id", header: "Trade ID" },
 	{ field: "date", header: "Trade Date" },
@@ -186,6 +212,10 @@ class TradeService {
 
 	static getFormDefaults(): TradeModel {
 		return FORM_DEFAULTS;
+	}
+
+	static getFormSchema() {
+		return FORM_SCHEMA;
 	}
 
 	static getColumns() {

@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import Util from "../../utils/Util";
 import { TradeModel } from "../../models/trade.model";
 import TradeService from "../../services/trade.service";
 import TradeForm from "../forms/trade/TradeForm";
+import Util from "../../utils/Util";
 
 interface Props {
 	stageTrade: (data: TradeModel) => void;
@@ -26,7 +27,8 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 		reset,
 		control
 	} = useForm<TradeModel>({
-		defaultValues: TradeService.getFormDefaults()
+		defaultValues: TradeService.getFormDefaults(),
+		resolver: yupResolver(TradeService.getFormSchema())
 	});
 	const { errors, isSubmitting } = formState;
 
