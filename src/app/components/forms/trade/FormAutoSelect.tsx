@@ -48,7 +48,6 @@ const FormAutoSelect = ({ id, label, options, control, errors }: Props) => {
 							dropdown
 							suggestions={filtered}
 							completeMethod={search}
-							className="p-autocomplete-sm"
 						/>
 					)}
 				/>
