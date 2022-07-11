@@ -100,7 +100,6 @@ const TradeEntry = () => {
 					disabled={!selectedTrade}
 				/>
 			</div>
-
 			<div className="s-1" />
 			<BasicTable
 				rows={trades}
@@ -119,7 +118,6 @@ const TradeEntry = () => {
 				visible={addDialogVisible}
 				setVisible={setAddDialogVisible}
 			/>
-
 			{renderEditDialog()}
 		</main>
 	);
