@@ -14,15 +14,11 @@ export interface TradeModel {
 	settlementLocation: string;
 	book: string;
 	transaction: string;
-	deliveryDateStart: string;
-	deliveryDateEnd: string;
+	deliveryStart: string;
+	deliveryEnd: string;
+	expiration: string;
 	volume: number;
 	price: number;
 	fee: number;
 	strike: number;
-
-	// subBook: string;
-	// shape: string;
-	// expirationDate: string;
-	// firm: string;
 }

@@ -89,13 +89,18 @@ const FORM_FIELDS: FormField<TradeModel>[] = [
 		options: ["Buy", "Sell"]
 	},
 	{
-		id: "deliveryDateStart",
+		id: "deliveryStart",
 		label: "Start Delivery Date",
 		type: "date"
 	},
 	{
-		id: "deliveryDateEnd",
+		id: "deliveryEnd",
 		label: "End Delivery Date",
+		type: "date"
+	},
+	{
+		id: "expiration",
+		label: "Expiration Date",
 		type: "date"
 	},
 	{
@@ -136,8 +141,9 @@ const FORM_DEFAULTS = {
 	settlementLocation: "",
 	book: "",
 	transaction: "",
-	deliveryDateStart: "",
-	deliveryDateEnd: "",
+	deliveryStart: "",
+	deliveryEnd: "",
+	expiration: "",
 	volume: 0,
 	price: 0,
 	fee: 0,
@@ -160,8 +166,9 @@ const FORM_SCHEMA = yup.object().shape({
 	settlementLocation: yup.string().required(),
 	book: yup.string(),
 	transaction: yup.string().required(),
-	deliveryDateStart: yup.string(),
-	deliveryDateEnd: yup.string(),
+	deliveryStart: yup.string(),
+	deliveryEnd: yup.string(),
+	expiration: yup.string(),
 	volume: yup.number().required(),
 	price: yup.number().required(),
 	fee: yup.number().required(),
@@ -184,8 +191,8 @@ const COLUMNS = [
 	{ field: "settlementLocation", header: "Settlement Location" },
 	{ field: "book", header: "Book" },
 	{ field: "transaction", header: "Transaction" },
-	{ field: "deliveryDateStart", header: "Start Delivery Date" },
-	{ field: "deliveryDateEnd", header: "End Delivery Date" },
+	{ field: "deliveryStart", header: "Start Delivery Date" },
+	{ field: "deliveryEnd", header: "End Delivery Date" },
 	{ field: "volume", header: "Volume" },
 	{ field: "price", header: "Price" },
 	{ field: "fee", header: "Fee" },
