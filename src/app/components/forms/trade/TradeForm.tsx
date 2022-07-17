@@ -72,7 +72,9 @@ const TradeForm = ({
 							id={info.id}
 							options={info.options}
 							label={info.label}
-							control={control}
+							watch={watch}
+							getValues={getValues}
+							setValue={setValue}
 							errors={errors}
 						/>
 					);
@@ -87,7 +89,9 @@ const TradeForm = ({
 							id={info.id}
 							options={options}
 							label={info.label}
-							control={control}
+							watch={watch}
+							getValues={getValues}
+							setValue={setValue}
 							errors={errors}
 						/>
 					);

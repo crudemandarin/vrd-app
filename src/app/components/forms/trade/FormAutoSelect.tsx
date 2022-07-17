@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { FieldErrors, UseFormGetValues, UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import {
 	AutoComplete,
+	AutoCompleteChangeParams,
 	AutoCompleteCompleteMethodParams
 } from "primereact/autocomplete";
 
@@ -13,16 +14,31 @@ interface Props {
 	id: keyof TradeModel;
 	label: string;
 	options: string[];
-	control: Control<TradeModel>;
+	watch: UseFormWatch<TradeModel>;
+	getValues: UseFormGetValues<TradeModel>;
+	setValue: UseFormSetValue<TradeModel>;
 	errors: FieldErrors<TradeModel>;
 }
 
-const FormAutoSelect = ({ id, label, options, control, errors }: Props) => {
+const FormAutoSelect = ({ id, label, options, watch, getValues, setValue, errors }: Props) => {
+	const [localValue, setLocalValue] = useState("");
 	const [filtered, setFiltered] = useState<string[]>([]);
+
+	useEffect(() => {
+		const value = getValues(id) as string;
+		if (!value) setLocalValue("");
+		else setLocalValue(value);
+	}, [watch(id)]);
 
 	useEffect(() => {
 		setFiltered(options);
 	}, [options]);
+
+	const onChange = (event: AutoCompleteChangeParams) => {
+		const value = event.value;
+		setLocalValue(value);
+		if (options.includes(value)) setValue(id, value);
+	}
 
 	const search = (event: AutoCompleteCompleteMethodParams) => {
 		const query = event.query.trim().toLowerCase();
@@ -39,17 +55,12 @@ const FormAutoSelect = ({ id, label, options, control, errors }: Props) => {
 		<div className="form-input-container">
 			<label>{label}</label>
 			<div>
-				<Controller
-					name={id}
-					control={control}
-					render={({ field }) => (
-						<AutoComplete
-							{...field}
-							dropdown
-							suggestions={filtered}
-							completeMethod={search}
-						/>
-					)}
+				<AutoComplete
+					value={localValue}
+					onChange={onChange}
+					completeMethod={search}
+					suggestions={filtered}
+					dropdown
 				/>
 			</div>
 			<small className="p-error block">{errors[id]?.message}</small>

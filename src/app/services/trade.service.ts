@@ -27,6 +27,13 @@ class TradeService {
 		return DEFAULT_COLUMNS;
 	}
 
+	static async getTrades(): Promise<TradeModel[]> {
+		console.log("TradeService.getTrades invoked!");
+		const resp = await axios.get(`${BASE_URL}/trades`);
+		const { trades } = resp.data;
+		return trades;
+	}
+
 	static async createTrade(trade: TradeModel) {
 		console.log("TradeService.createTrade invoked! trade =", trade);
 		const result = await axios.post(`${BASE_URL}/trade`, { trade });
