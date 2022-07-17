@@ -64,6 +64,8 @@ const BasicTable = <T,>({
 				responsiveLayout="scroll"
 				resizableColumns
 				showGridlines
+				rows={10}
+				paginator
 			>
 				{renderColumns()}
 			</DataTable>
