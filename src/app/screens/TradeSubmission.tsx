@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
@@ -28,8 +28,6 @@ const TradeSubmission = () => {
 
 	return (
 		<main>
-			<div className="s-2" />
-
 			<h2>Submission Confirmation</h2>
 			<div className="s-1" />
 			<p>Your trades submission has been uploaded to our system.</p>
@@ -42,8 +40,8 @@ const TradeSubmission = () => {
 
 			<div className="s-2" />
 
-			<p className="caption">Made a mistake? Modify trades on the Dashboard</p>
-			<p className="caption">More trades to enter?</p>
+			<p className="caption">Made a mistake? <NavLink to="/dashboard">Modify trades on the Dashboard</NavLink></p>
+			<p className="caption"><NavLink to="/trade-entry">Have more trades to enter?</NavLink></p>
 		</main>
 	);
 };

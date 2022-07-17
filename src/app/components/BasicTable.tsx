@@ -5,10 +5,15 @@ import { useState } from "react";
 
 interface Props<T> {
 	rows: T[];
-	columns: { field: string; header: string }[];
-	defaultColumns?: { field: string; header: string }[];
+	columns: ColumnField[];
+	defaultColumns?: ColumnField[];
 	selected: T | undefined;
 	setSelected: (value: React.SetStateAction<T | undefined>) => void;
+}
+
+interface ColumnField {
+	field: string;
+	header: string;
 }
 
 const BasicTable = <T,>({
@@ -23,7 +28,7 @@ const BasicTable = <T,>({
 	);
 
 	const onColumnToggle = (event: MultiSelectChangeParams) => {
-		const cols = event.value as { field: string; header: string }[];
+		const cols = event.value as ColumnField[];
 		const updatedCols = columns.filter((col) =>
 			cols.some((sCol) => sCol.field === col.field)
 		);
@@ -32,7 +37,7 @@ const BasicTable = <T,>({
 
 	const renderColumns = () =>
 		selectedColumns.map((col) => (
-			<Column key={`col-${col.field}`} field={col.field} header={col.header} />
+			<Column key={`col-${col.field}`} field={col.field} header={col.header} sortable />
 		));
 
 	const header = (

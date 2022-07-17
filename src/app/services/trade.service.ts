@@ -238,7 +238,10 @@ const COLUMNS = [
 	{ field: "counterParty", header: "Counter Party" },
 	{ field: "otherCounterParty", header: "Other Counter Party" },
 	{ field: "settlementPoint", header: "Settlement Point" },
-	{ field: "settlementLocation", header: "Settlement Location" },
+	{
+		field: "settlementLocation",
+		header: "Settlement Location"
+	},
 	{ field: "book", header: "Book" },
 	{ field: "transaction", header: "Transaction" },
 	{ field: "deliveryStart", header: "Start Delivery Date" },
