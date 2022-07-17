@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "primereact/button";
 
 import AddTradeDialog from "../components/dialog/AddTradeDialog";
@@ -12,22 +14,41 @@ import { TradeModel } from "../models/trade.model";
 import TradeService from "../services/trade.service";
 
 const TradeEntry = () => {
+	const navigate = useNavigate();
+
 	const [trades, setTrades] = useState<TradeModel[]>([]);
 
 	const [addDialogVisible, setAddDialogVisible] = useState(false);
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [errorMsg, setErrorMsg] = useState("");
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
 		undefined
 	);
 
-	const stageTrade = (trade: TradeModel) => setTrades([...trades, trade]);
+	const stageTrade = (trade: TradeModel) => {
+		setTrades([...trades, trade]);
+	};
 
 	const updateTrade = (update: TradeModel) => {
 		const updateIndex = trades.findIndex((trade) => trade.id === update.id);
 		const updatedTrades = [...trades];
 		updatedTrades[updateIndex] = update;
 		setTrades(updatedTrades);
+	};
+
+	const submitTrades = async (staged: TradeModel[]) => {
+		setIsSubmitting(true);
+		try {
+			const result = await TradeService.createTrades(trades);
+			console.log("result =", result);
+			navigate("/trade-submission", { state: { trades: staged } });
+		} catch (err) {
+			console.error("Failed to post trades. Error =", err);
+			setErrorMsg("Failed to upload trades. Please try again.");
+		}
+		setIsSubmitting(false);
 	};
 
 	const onAddTradeClick = () => setAddDialogVisible(true);
@@ -50,6 +71,22 @@ const TradeEntry = () => {
 		);
 		setTrades(updatedTrades);
 		setSelectedTrade(undefined);
+	};
+
+	const onSubmitClick = async () => {
+		console.log("submit clicked, trades =", trades);
+		setErrorMsg("");
+		submitTrades(trades);
+	};
+
+	const renderError = () => {
+		if (!errorMsg) return undefined;
+		return (
+			<div className="error mb-2">
+				{" "}
+				Failed to upload trades. Please try again.{" "}
+			</div>
+		);
 	};
 
 	const renderEditDialog = () => {
@@ -111,7 +148,15 @@ const TradeEntry = () => {
 
 			<div className="s-2" />
 
-			<Button label="Submit Trades" />
+			{renderError()}
+
+			<div>
+				<Button
+					label="Submit Trades"
+					onClick={onSubmitClick}
+					disabled={isSubmitting || trades.length === 0}
+				/>
+			</div>
 
 			<AddTradeDialog
 				stageTrade={stageTrade}

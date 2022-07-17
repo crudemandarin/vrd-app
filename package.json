@@ -11,6 +11,7 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "axios": "^0.27.2",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
     "react": "^18.2.0",
@@ -30,7 +31,7 @@
     "eject": "react-scripts eject",
     "lint-c": "eslint src/",
     "lint-f": "eslint src/ --fix",
-    "pretty-f": "prettier --config .prettierrc 'src/**/*.*' --write"
+    "pretty-f": "prettier --write src/"
   },
   "eslintConfig": {
     "extends": [

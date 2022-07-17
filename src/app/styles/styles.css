@@ -32,6 +32,10 @@
 	margin-top: 0.5rem;
 }
 
+.mb-2 {
+	margin-bottom: 1rem;
+}
+
 /* Spacer */
 
 .s-1 {
@@ -40,4 +44,14 @@
 
 .s-2 {
 	padding: 0.5rem;
+}
+
+/* Fonts */
+
+.caption {
+	color: rgb(90, 90, 90);
+}
+
+.error {
+	color: rgb(240, 56, 56);
 }

@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./app/App";
 import Dashboard from "./app/screens/Dashboard";
 import TradeEntry from "./app/screens/TradeEntry";
+import TradeSubmission from "./app/screens/TradeSubmission";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
@@ -25,6 +26,7 @@ root.render(
 				<Route path="/" element={<App />}>
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="trade-entry" element={<TradeEntry />} />
+					<Route path="trade-submission" element={<TradeSubmission />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

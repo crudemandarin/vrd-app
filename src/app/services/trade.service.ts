@@ -1,13 +1,56 @@
+import axios from "axios";
 import * as yup from "yup";
 
 import { FormField } from "../models/form.model";
 import { TradeModel } from "../models/trade.model";
 
+const BASE_URL = "http://localhost:5050";
+
+class TradeService {
+	static getFormFields(): FormField<TradeModel>[] {
+		return FORM_FIELDS;
+	}
+
+	static getFormDefaults(): TradeModel {
+		return FORM_DEFAULTS;
+	}
+
+	static getFormSchema() {
+		return FORM_SCHEMA;
+	}
+
+	static getColumns() {
+		return COLUMNS;
+	}
+
+	static getDefaultColumns() {
+		return DEFAULT_COLUMNS;
+	}
+
+	static async createTrade(trade: TradeModel) {
+		console.log("TradeService.createTrade invoked! trade =", trade);
+		const result = await axios.post(`${BASE_URL}/trade`, { trade });
+		return result;
+	}
+
+	static async createTrades(trades: TradeModel[]) {
+		console.log("TradeService.createTrades invoked! trades =", trades);
+		const result = await axios.post(`${BASE_URL}/trades`, { trades });
+		return result;
+	}
+
+	static async updateTrade(id: string, updates: TradeModel) {
+		console.log(
+			`TradeService.createTrades invoked! id = ${id} updates = ${updates}`
+		);
+		const result = await axios.put(`${BASE_URL}/trade`, { id, updates });
+		return result;
+	}
+}
+
+export default TradeService;
+
 const FORM_FIELDS: FormField<TradeModel>[] = [
-	// {
-	// 	id: "id",
-	// 	label: "Trade ID"
-	// },
 	{
 		id: "date",
 		label: "Trade Date",
@@ -211,27 +254,3 @@ const DEFAULT_COLUMNS = [
 	{ field: "price", header: "Price" },
 	{ field: "strike", header: "Strike" }
 ];
-
-class TradeService {
-	static getFormFields(): FormField<TradeModel>[] {
-		return FORM_FIELDS;
-	}
-
-	static getFormDefaults(): TradeModel {
-		return FORM_DEFAULTS;
-	}
-
-	static getFormSchema() {
-		return FORM_SCHEMA;
-	}
-
-	static getColumns() {
-		return COLUMNS;
-	}
-
-	static getDefaultColumns() {
-		return DEFAULT_COLUMNS;
-	}
-}
-
-export default TradeService;
