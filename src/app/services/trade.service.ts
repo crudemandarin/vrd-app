@@ -3,8 +3,7 @@ import * as yup from "yup";
 
 import { FormField } from "../models/form.model";
 import { TradeModel } from "../models/trade.model";
-
-const BASE_URL = "http://localhost:5050";
+import { BASE_URL } from "../utils/config";
 
 class TradeService {
 	static getFormFields(): FormField<TradeModel>[] {

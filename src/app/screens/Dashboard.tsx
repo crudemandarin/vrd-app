@@ -1,34 +1,33 @@
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 import BasicTable from "../components/BasicTable";
 import EditTradeDialog from "../components/dialog/EditTradeDialog";
 import { TradeModel } from "../models/trade.model";
 import TradeService from "../services/trade.service";
+import { BASE_URL } from "../utils/config";
+import fetcher from "../utils/fetcher";
 
 const Dashboard = () => {
+	const { data, mutate } = useSWR(`${BASE_URL}/trades`, fetcher);
+
 	const [trades, setTrades] = useState<TradeModel[]>([]);
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
 		undefined
 	);
 
-	const [refreshFlag, setRefreshFlag] = useState(false);
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
 	useEffect(() => {
-		const getData = async () => {
-			const updated = await TradeService.getTrades();
-			setTrades(updated);
-		}
-
-		getData();
-	}, [refreshFlag]);
+		if (data) setTrades(data.trades);
+	}, [data]);
 
 	const updateTrade = async (update: TradeModel) => {
 		const result = await TradeService.updateTrade(update.id, update);
 		console.log("result =", result);
 		setSelectedTrade(undefined);
-		setRefreshFlag(!refreshFlag);
+		mutate();
 	};
 
 	const onEditTradeClick = () => setEditDialogVisible(true);
