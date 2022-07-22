@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { MultiSelect, MultiSelectChangeParams } from "primereact/multiselect";
-import { useState } from "react";
 
 interface Props<T> {
 	rows: T[];
@@ -37,7 +38,12 @@ const BasicTable = <T,>({
 
 	const renderColumns = () =>
 		selectedColumns.map((col) => (
-			<Column key={`col-${col.field}`} field={col.field} header={col.header} sortable />
+			<Column
+				key={`col-${col.field}`}
+				field={col.field}
+				header={col.header}
+				sortable
+			/>
 		));
 
 	const header = (

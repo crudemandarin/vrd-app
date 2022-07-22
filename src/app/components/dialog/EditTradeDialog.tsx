@@ -1,18 +1,16 @@
 import { useEffect } from "react";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import { TradeModel } from "../../models/trade.model";
+import { TradeFormModel } from "../../models/trade.form.model";
+import TradeFormInfo from "../../info/trade-form.info";
 import TradeForm from "../forms/trade/TradeForm";
-import TradeService from "../../services/trade.service";
 
 interface Props {
-	trade: TradeModel;
-	updateTrade: (data: TradeModel) => void;
+	trade: TradeFormModel;
+	updateTrade: (data: TradeFormModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
@@ -31,9 +29,9 @@ const EditTradeDialog = ({
 		handleSubmit,
 		reset,
 		control
-	} = useForm<TradeModel>({
+	} = useForm<TradeFormModel>({
 		defaultValues: trade,
-		resolver: yupResolver(TradeService.getFormSchema())
+		resolver: yupResolver(TradeFormInfo.getFormSchema())
 	});
 	const { errors, isSubmitting } = formState;
 
@@ -41,7 +39,7 @@ const EditTradeDialog = ({
 
 	const onHide = () => setVisible(false);
 
-	const onSubmit = (data: TradeModel) => {
+	const onSubmit = (data: TradeFormModel) => {
 		updateTrade(data);
 		setVisible(false);
 		reset();

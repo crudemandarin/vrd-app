@@ -1,20 +1,18 @@
 import { useState } from "react";
-
 import { NavLink, useLocation } from "react-router-dom";
-
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
-import Error404 from "./Error404";
 import { TradeModel } from "../models/trade.model";
-import TradeService from "../services/trade.service";
+import Error404 from "./Error404";
+import TradeFormInfo from "../info/trade-form.info";
 
 interface LocationState {
 	trades: TradeModel[];
 }
 
 const TradeSubmission = () => {
-	const [columns] = useState(TradeService.getColumns());
+	const [columns] = useState(TradeFormInfo.getColumns());
 
 	const location = useLocation();
 	const state = location.state as LocationState;
@@ -40,8 +38,13 @@ const TradeSubmission = () => {
 
 			<div className="s-2" />
 
-			<p className="caption">Made a mistake? <NavLink to="/dashboard">Modify trades on the Dashboard</NavLink></p>
-			<p className="caption"><NavLink to="/trade-entry">Have more trades to enter?</NavLink></p>
+			<p className="caption">
+				Made a mistake?{" "}
+				<NavLink to="/dashboard">Modify trades on the Dashboard</NavLink>
+			</p>
+			<p className="caption">
+				<NavLink to="/trade-entry">Have more trades to enter?</NavLink>
+			</p>
 		</main>
 	);
 };

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { FieldErrors, UseFormGetValues, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import {
+	FieldErrors,
+	UseFormGetValues,
+	UseFormSetValue,
+	UseFormWatch
+} from "react-hook-form";
 
 import {
 	AutoComplete,
@@ -8,19 +13,27 @@ import {
 	AutoCompleteCompleteMethodParams
 } from "primereact/autocomplete";
 
-import { TradeModel } from "../../../models/trade.model";
+import { TradeFormModel } from "../../../models/trade.form.model";
 
 interface Props {
-	id: keyof TradeModel;
+	id: keyof TradeFormModel;
 	label: string;
 	options: string[];
-	watch: UseFormWatch<TradeModel>;
-	getValues: UseFormGetValues<TradeModel>;
-	setValue: UseFormSetValue<TradeModel>;
-	errors: FieldErrors<TradeModel>;
+	watch: UseFormWatch<TradeFormModel>;
+	getValues: UseFormGetValues<TradeFormModel>;
+	setValue: UseFormSetValue<TradeFormModel>;
+	errors: FieldErrors<TradeFormModel>;
 }
 
-const FormAutoSelect = ({ id, label, options, watch, getValues, setValue, errors }: Props) => {
+const FormAutoSelect = ({
+	id,
+	label,
+	options,
+	watch,
+	getValues,
+	setValue,
+	errors
+}: Props) => {
 	const [localValue, setLocalValue] = useState("");
 	const [filtered, setFiltered] = useState<string[]>([]);
 
@@ -38,7 +51,7 @@ const FormAutoSelect = ({ id, label, options, watch, getValues, setValue, errors
 		const value = event.value;
 		setLocalValue(value);
 		if (options.includes(value)) setValue(id, value);
-	}
+	};
 
 	const search = (event: AutoCompleteCompleteMethodParams) => {
 		const query = event.query.trim().toLowerCase();

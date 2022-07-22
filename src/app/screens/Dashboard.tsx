@@ -2,12 +2,14 @@ import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-import BasicTable from "../components/BasicTable";
-import EditTradeDialog from "../components/dialog/EditTradeDialog";
-import { TradeModel } from "../models/trade.model";
-import TradeService from "../services/trade.service";
 import { BASE_URL } from "../utils/config";
 import fetcher from "../utils/fetcher";
+import { TradeModel } from "../models/trade.model";
+import { TradeFormModel } from "../models/trade.form.model";
+import TradeInfo from "../info/trade.info";
+import TradeService from "../services/trade.service";
+import BasicTable from "../components/BasicTable";
+import EditTradeDialog from "../components/dialog/EditTradeDialog";
 
 const Dashboard = () => {
 	const { data, mutate } = useSWR(`${BASE_URL}/trades`, fetcher);
@@ -23,8 +25,8 @@ const Dashboard = () => {
 		if (data) setTrades(data.trades);
 	}, [data]);
 
-	const updateTrade = async (update: TradeModel) => {
-		const result = await TradeService.updateTrade(update.id, update);
+	const updateTrade = async (update: TradeFormModel) => {
+		const result = await TradeService.updateTrade(update.trade_id, update);
 		console.log("result =", result);
 		setSelectedTrade(undefined);
 		mutate();
@@ -33,8 +35,8 @@ const Dashboard = () => {
 	const onEditTradeClick = () => setEditDialogVisible(true);
 
 	const onDeactivateClick = () => {
-		console.log("deactivate click")
-	}
+		console.log("deactivate click");
+	};
 
 	const renderEditDialog = () => {
 		if (!selectedTrade) return undefined;
@@ -78,8 +80,8 @@ const Dashboard = () => {
 			<div className="s-1" />
 			<BasicTable
 				rows={trades}
-				columns={TradeService.getColumns()}
-				defaultColumns={TradeService.getDefaultColumns()}
+				columns={TradeInfo.getColumns()}
+				defaultColumns={TradeInfo.getDefaultColumns()}
 				selected={selectedTrade}
 				setSelected={setSelectedTrade}
 			/>

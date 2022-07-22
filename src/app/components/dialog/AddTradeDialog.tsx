@@ -1,18 +1,16 @@
 import { useEffect } from "react";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import { TradeModel } from "../../models/trade.model";
-import TradeService from "../../services/trade.service";
-import TradeForm from "../forms/trade/TradeForm";
 import Util from "../../utils/Util";
+import { TradeFormModel } from "../../models/trade.form.model";
+import TradeFormInfo from "../../info/trade-form.info";
+import TradeForm from "../forms/trade/TradeForm";
 
 interface Props {
-	stageTrade: (data: TradeModel) => void;
+	stageTrade: (data: TradeFormModel) => void;
 	visible: boolean;
 	setVisible: (value: React.SetStateAction<boolean>) => void;
 }
@@ -26,30 +24,30 @@ const AddTradeDialog = ({ stageTrade, visible, setVisible }: Props) => {
 		handleSubmit,
 		reset,
 		control
-	} = useForm<TradeModel>({
-		defaultValues: TradeService.getFormDefaults(),
-		resolver: yupResolver(TradeService.getFormSchema())
+	} = useForm<TradeFormModel>({
+		defaultValues: TradeFormInfo.getFormDefaults(),
+		resolver: yupResolver(TradeFormInfo.getFormSchema())
 	});
 	const { errors, isSubmitting } = formState;
 
-	useEffect(() => setValue("id", Util.generateId()), [visible]);
+	useEffect(() => setValue("trade_id", Util.generateId()), [visible]);
 
 	const onHide = () => {
 		setVisible(false);
-		reset(TradeService.getFormDefaults());
+		reset(TradeFormInfo.getFormDefaults());
 	};
 
-	const onSubmit = (data: TradeModel) => {
+	const onSubmit = (data: TradeFormModel) => {
 		stageTrade(data);
 		setVisible(false);
-		reset(TradeService.getFormDefaults());
+		reset(TradeFormInfo.getFormDefaults());
 	};
 
-	const onReset = () => reset(TradeService.getFormDefaults());
+	const onReset = () => reset(TradeFormInfo.getFormDefaults());
 
 	const onCancel = () => {
 		setVisible(false);
-		reset(TradeService.getFormDefaults());
+		reset(TradeFormInfo.getFormDefaults());
 	};
 
 	const footer = (

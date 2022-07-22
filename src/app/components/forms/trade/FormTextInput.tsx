@@ -2,13 +2,13 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 
 import { InputText } from "primereact/inputtext";
 
-import { TradeModel } from "../../../models/trade.model";
+import { TradeFormModel } from "../../../models/trade.form.model";
 
 interface Props {
-	id: keyof TradeModel;
+	id: keyof TradeFormModel;
 	label: string;
-	control: Control<TradeModel>;
-	errors: FieldErrors<TradeModel>;
+	control: Control<TradeFormModel>;
+	errors: FieldErrors<TradeFormModel>;
 }
 
 const FormTextInput = ({ id, label, control, errors }: Props) => {

@@ -9,16 +9,16 @@ import {
 
 import { Calendar, CalendarChangeParams } from "primereact/calendar";
 
-import { TradeModel } from "../../../models/trade.model";
+import { TradeFormModel } from "../../../models/trade.form.model";
 import Util from "../../../utils/Util";
 
 interface Props {
-	id: keyof TradeModel;
+	id: keyof TradeFormModel;
 	label: string;
-	watch: UseFormWatch<TradeModel>;
-	getValues: UseFormGetValues<TradeModel>;
-	setValue: UseFormSetValue<TradeModel>;
-	errors: FieldErrors<TradeModel>;
+	watch: UseFormWatch<TradeFormModel>;
+	getValues: UseFormGetValues<TradeFormModel>;
+	setValue: UseFormSetValue<TradeFormModel>;
+	errors: FieldErrors<TradeFormModel>;
 }
 
 const FormDateInput = ({
@@ -36,7 +36,7 @@ const FormDateInput = ({
 	useEffect(() => {
 		const value = getValues(id);
 		if (!value) setLocalValue(undefined);
-		else setLocalValue(new Date(getValues(id)));
+		else setLocalValue(new Date(getValues(id) as string));
 	}, [watch(id)]);
 
 	const onChange = (event: CalendarChangeParams) => {

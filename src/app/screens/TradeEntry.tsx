@@ -1,44 +1,43 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { Button } from "primereact/button";
 
+import Util from "../utils/Util";
+import { TradeFormModel } from "../models/trade.form.model";
+import TradeService from "../services/trade.service";
+import TradeFormInfo from "../info/trade-form.info";
+import BasicTable from "../components/BasicTable";
 import AddTradeDialog from "../components/dialog/AddTradeDialog";
 import EditTradeDialog from "../components/dialog/EditTradeDialog";
-
-import Util from "../utils/Util";
-
-import BasicTable from "../components/BasicTable";
-import { TradeModel } from "../models/trade.model";
-import TradeService from "../services/trade.service";
 
 const TradeEntry = () => {
 	const navigate = useNavigate();
 
-	const [trades, setTrades] = useState<TradeModel[]>([]);
+	const [trades, setTrades] = useState<TradeFormModel[]>([]);
 
 	const [addDialogVisible, setAddDialogVisible] = useState(false);
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
-	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
-		undefined
-	);
+	const [selectedTrade, setSelectedTrade] = useState<
+		TradeFormModel | undefined
+	>(undefined);
 
-	const stageTrade = (trade: TradeModel) => {
+	const stageTrade = (trade: TradeFormModel) => {
 		setTrades([...trades, trade]);
 	};
 
-	const updateTrade = (update: TradeModel) => {
-		const updateIndex = trades.findIndex((trade) => trade.id === update.id);
+	const updateTrade = (update: TradeFormModel) => {
+		const updateIndex = trades.findIndex(
+			(trade) => trade.trade_id === update.trade_id
+		);
 		const updatedTrades = [...trades];
 		updatedTrades[updateIndex] = update;
 		setTrades(updatedTrades);
 	};
 
-	const submitTrades = async (staged: TradeModel[]) => {
+	const submitTrades = async (staged: TradeFormModel[]) => {
 		setIsSubmitting(true);
 		try {
 			const result = await TradeService.createTrades(trades);
@@ -58,7 +57,7 @@ const TradeEntry = () => {
 	const onDuplicateTradeClick = () => {
 		if (!selectedTrade) return;
 		const updateTrade = { ...selectedTrade };
-		updateTrade.id = Util.generateId();
+		updateTrade.trade_id = Util.generateId();
 		const updatedTrades = [...trades, updateTrade];
 		setTrades(updatedTrades);
 		setSelectedTrade(undefined);
@@ -67,7 +66,7 @@ const TradeEntry = () => {
 	const onDeleteTradeClick = () => {
 		if (!selectedTrade) return;
 		const updatedTrades = trades.filter(
-			(trade) => trade.id != selectedTrade.id
+			(trade) => trade.trade_id != selectedTrade.trade_id
 		);
 		setTrades(updatedTrades);
 		setSelectedTrade(undefined);
@@ -83,8 +82,7 @@ const TradeEntry = () => {
 		if (!errorMsg) return undefined;
 		return (
 			<div className="error mb-2">
-				{" "}
-				Failed to upload trades. Please try again.{" "}
+				Failed to upload trades. Please try again.
 			</div>
 		);
 	};
@@ -140,8 +138,8 @@ const TradeEntry = () => {
 			<div className="s-1" />
 			<BasicTable
 				rows={trades}
-				columns={TradeService.getColumns()}
-				defaultColumns={TradeService.getDefaultColumns()}
+				columns={TradeFormInfo.getColumns()}
+				defaultColumns={TradeFormInfo.getDefaultColumns()}
 				selected={selectedTrade}
 				setSelected={setSelectedTrade}
 			/>

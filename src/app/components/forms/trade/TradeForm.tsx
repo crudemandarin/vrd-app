@@ -9,23 +9,21 @@ import {
 	UseFormWatch
 } from "react-hook-form";
 
-import { TradeModel } from "../../../models/trade.model";
+import { TradeFormModel } from "../../../models/trade.form.model";
 import { FormField } from "../../../models/form.model";
-import TradeService from "../../../services/trade.service";
-
+import TradeFormInfo from "../../../info/trade-form.info";
 import FormTextInput from "./FormTextInput";
 import FormAutoSelect from "./FormAutoSelect";
 import FormDateInput from "./FormDateInput";
-
 import "../../../styles/form-styles.css";
 
 interface Props {
-	watch: UseFormWatch<TradeModel>;
-	getValues: UseFormGetValues<TradeModel>;
-	setValue: UseFormSetValue<TradeModel>;
-	reset: UseFormReset<TradeModel>;
-	control: Control<TradeModel>;
-	errors: FieldErrors<TradeModel>;
+	watch: UseFormWatch<TradeFormModel>;
+	getValues: UseFormGetValues<TradeFormModel>;
+	setValue: UseFormSetValue<TradeFormModel>;
+	reset: UseFormReset<TradeFormModel>;
+	control: Control<TradeFormModel>;
+	errors: FieldErrors<TradeFormModel>;
 }
 
 const TradeForm = ({
@@ -36,35 +34,36 @@ const TradeForm = ({
 	control,
 	errors
 }: Props) => {
-	const [fields] = useState<FormField<TradeModel>[]>(
-		TradeService.getFormFields()
+	const [fields] = useState<FormField<TradeFormModel>[]>(
+		TradeFormInfo.getFormFields()
 	);
 
-	// Reset `contractName` if option not valid with `commodity`
+	// Reset `contract_name` if option not valid with `commodity`
 	useEffect(() => {
 		const key = getValues("commodity");
-		const field = fields.filter((f) => f.id === "contractName")[0];
-		if (!key || !field.cond) return reset({ ...getValues(), contractName: "" });
+		const field = fields.filter((f) => f.id === "contract_name")[0];
+		if (!key || !field.cond)
+			return reset({ ...getValues(), contract_name: "" });
 		const options = field.cond.options[key];
-		const value = getValues("contractName");
-		if (!options.includes(value)) reset({ ...getValues(), contractName: "" });
+		const value = getValues("contract_name");
+		if (!options.includes(value)) reset({ ...getValues(), contract_name: "" });
 	}, [watch("commodity")]);
 
-	// Reset `settlementLocation` if option not valid with `market`
+	// Reset `settlement_location` if option not valid with `market`
 	useEffect(() => {
 		const key = getValues("market");
-		const field = fields.filter((f) => f.id === "settlementLocation")[0];
+		const field = fields.filter((f) => f.id === "settlement_location")[0];
 		if (!key || !field.cond)
-			return reset({ ...getValues(), settlementLocation: "" });
+			return reset({ ...getValues(), settlement_location: "" });
 		const options = field.cond.options[key];
-		const value = getValues("settlementLocation");
+		const value = getValues("settlement_location");
 		if (!options.includes(value))
-			reset({ ...getValues(), settlementLocation: "" });
+			reset({ ...getValues(), settlement_location: "" });
 	}, [watch("market")]);
 
 	return (
 		<form className="flex flex-wrap">
-			{TradeService.getFormFields().map((info) => {
+			{TradeFormInfo.getFormFields().map((info) => {
 				if (info.options) {
 					return (
 						<FormAutoSelect
