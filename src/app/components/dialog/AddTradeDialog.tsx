@@ -5,7 +5,7 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
 import Util from "../../utils/Util";
-import { TradeFormModel } from "../../models/trade.form.model";
+import { TradeFormModel } from "../../models/trade-form.model";
 import TradeFormInfo from "../../info/trade-form.info";
 import TradeForm from "../forms/trade/TradeForm";
 

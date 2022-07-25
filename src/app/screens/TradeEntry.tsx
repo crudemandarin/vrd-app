@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 
 import Util from "../utils/Util";
-import { TradeFormModel } from "../models/trade.form.model";
+import { TradeFormModel } from "../models/trade-form.model";
 import TradeService from "../services/trade.service";
 import TradeFormInfo from "../info/trade-form.info";
 import BasicTable from "../components/BasicTable";

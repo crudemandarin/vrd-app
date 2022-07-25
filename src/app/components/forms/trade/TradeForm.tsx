@@ -9,12 +9,13 @@ import {
 	UseFormWatch
 } from "react-hook-form";
 
-import { TradeFormModel } from "../../../models/trade.form.model";
+import { TradeFormModel } from "../../../models/trade-form.model";
 import { FormField } from "../../../models/form.model";
 import TradeFormInfo from "../../../info/trade-form.info";
 import FormTextInput from "./FormTextInput";
 import FormAutoSelect from "./FormAutoSelect";
 import FormDateInput from "./FormDateInput";
+
 import "../../../styles/form-styles.css";
 
 interface Props {

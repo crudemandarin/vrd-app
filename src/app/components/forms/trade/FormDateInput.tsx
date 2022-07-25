@@ -9,7 +9,7 @@ import {
 
 import { Calendar, CalendarChangeParams } from "primereact/calendar";
 
-import { TradeFormModel } from "../../../models/trade.form.model";
+import { TradeFormModel } from "../../../models/trade-form.model";
 import Util from "../../../utils/Util";
 
 interface Props {

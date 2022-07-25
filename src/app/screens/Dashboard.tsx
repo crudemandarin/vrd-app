@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { BASE_URL } from "../utils/config";
 import fetcher from "../utils/fetcher";
 import { TradeModel } from "../models/trade.model";
-import { TradeFormModel } from "../models/trade.form.model";
+import { TradeFormModel } from "../models/trade-form.model";
 import TradeInfo from "../info/trade.info";
 import TradeService from "../services/trade.service";
 import BasicTable from "../components/BasicTable";

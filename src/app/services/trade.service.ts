@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { TradeFormModel } from "../models/trade.form.model";
+import { TradeFormModel } from "../models/trade-form.model";
 import { TradeModel } from "../models/trade.model";
 import { BASE_URL } from "../utils/config";
 

@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 import { FormField } from "../models/form.model";
-import { TradeFormModel } from "../models/trade.form.model";
+import { TradeFormModel } from "../models/trade-form.model";
 
 class TradeFormInfo {
 	static getColumns() {
