@@ -8,28 +8,17 @@ import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
 import "./index.css";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./app/common/styles/styles.css";
+import "./app/common/styles/form-styles.css";
 
 import App from "./app/App";
-import Dashboard from "./app/screens/Dashboard";
-import TradeEntry from "./app/screens/TradeEntry";
-import TradeSubmission from "./app/screens/TradeSubmission";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<App />}>
-					<Route path="dashboard" element={<Dashboard />} />
-					<Route path="trade-entry" element={<TradeEntry />} />
-					<Route path="trade-submission" element={<TradeSubmission />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
+		<App />
 	</React.StrictMode>
 );
 

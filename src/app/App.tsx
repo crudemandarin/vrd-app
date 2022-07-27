@@ -1,15 +1,46 @@
-import { Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./styles/styles.css";
+import Layout from "./common/components/Layout";
+import RequireAuth from "./common/utils/RequireAuth";
 
-import Header from "./components/Header";
+import Login from "./auth/Login";
+import Dashboard from "./dashboard/dashboard.page";
+import TradeEntry from "./trade/trade-entry.page";
+import TradeSubmission from "./trade/trade-submission.page";
 
 const App = () => {
 	return (
-		<>
-			<Header />
-			<Outlet />
-		</>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route path="login" element={<Login />} />
+					<Route
+						path="dashboard"
+						element={
+							<RequireAuth>
+								<Dashboard />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="trade-entry"
+						element={
+							<RequireAuth>
+								<TradeEntry />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="trade-submission"
+						element={
+							<RequireAuth>
+								<TradeSubmission />
+							</RequireAuth>
+						}
+					/>
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 };
 

@@ -4,10 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-import Util from "../../utils/Util";
-import { TradeFormModel } from "../../models/trade-form.model";
-import TradeFormInfo from "../../info/trade-form.info";
-import TradeForm from "../forms/trade/TradeForm";
+import Util from "../../common/utils/Util";
+import { TradeFormModel } from "../trade.model";
+import TradeFormInfo from "../info/trade-form.info";
+import TradeForm from "../trade-form/TradeForm";
 
 interface Props {
 	stageTrade: (data: TradeFormModel) => void;

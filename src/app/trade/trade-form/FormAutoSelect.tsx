@@ -13,7 +13,7 @@ import {
 	AutoCompleteCompleteMethodParams
 } from "primereact/autocomplete";
 
-import { TradeFormModel } from "../../../models/trade-form.model";
+import { TradeFormModel } from "../trade.model";
 
 interface Props {
 	id: keyof TradeFormModel;

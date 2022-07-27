@@ -9,8 +9,8 @@ import {
 
 import { Calendar, CalendarChangeParams } from "primereact/calendar";
 
-import { TradeFormModel } from "../../../models/trade-form.model";
-import Util from "../../../utils/Util";
+import Util from "../../common/utils/Util";
+import { TradeFormModel } from "../trade.model";
 
 interface Props {
 	id: keyof TradeFormModel;

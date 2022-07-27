@@ -2,23 +2,25 @@ import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-import { BASE_URL } from "../utils/config";
-import fetcher from "../utils/fetcher";
-import { TradeModel } from "../models/trade.model";
-import { TradeFormModel } from "../models/trade-form.model";
-import TradeInfo from "../info/trade.info";
-import TradeService from "../services/trade.service";
-import BasicTable from "../components/BasicTable";
-import EditTradeDialog from "../components/dialog/EditTradeDialog";
+import { BASE_URL } from "../common/utils/config";
+import fetcher from "../common/utils/fetcher";
+import BasicTable from "../common/components/BasicTable";
+
+import TradeService from "../trade/trade.service";
+
+import { TradeModel, TradeFormModel } from "../trade/trade.model";
+import TradeInfo from "../trade/info/trade.info";
+import EditTradeDialog from "../trade/dialogs/EditTradeDialog";
+
+import { useApp } from "../common/stores/app.store";
 
 const Dashboard = () => {
-	const { data, mutate } = useSWR(`${BASE_URL}/trades`, fetcher);
+	const { token, user, trades, setTrades } = useApp();
+	const { data, mutate } = useSWR([`${BASE_URL}/trades`, token], fetcher);
 
-	const [trades, setTrades] = useState<TradeModel[]>([]);
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
 		undefined
 	);
-
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
 	useEffect(() => {
@@ -26,7 +28,18 @@ const Dashboard = () => {
 	}, [data]);
 
 	const updateTrade = async (update: TradeFormModel) => {
-		const result = await TradeService.updateTrade(update.trade_id, update);
+		const result = await TradeService.updateTrade(
+			update.trade_id,
+			update,
+			token
+		);
+		console.log("result =", result);
+		setSelectedTrade(undefined);
+		mutate();
+	};
+
+	const toggleActive = async (trade: TradeModel) => {
+		const result = await TradeService.toggleActive(trade.trade_id, token);
 		console.log("result =", result);
 		setSelectedTrade(undefined);
 		mutate();
@@ -34,8 +47,9 @@ const Dashboard = () => {
 
 	const onEditTradeClick = () => setEditDialogVisible(true);
 
-	const onDeactivateClick = () => {
-		console.log("deactivate click");
+	const onToggleActive = () => {
+		if (!selectedTrade) return;
+		toggleActive(selectedTrade);
 	};
 
 	const renderEditDialog = () => {
@@ -54,7 +68,7 @@ const Dashboard = () => {
 		<main>
 			<h2>Dashboard</h2>
 			<div className="s-1" />
-			<p>Welcome back, USER</p>
+			<p>Welcome back, {user?.first_name}</p>
 
 			<div className="s-2" />
 
@@ -71,8 +85,8 @@ const Dashboard = () => {
 				/>
 				<div className="s-1" />
 				<Button
-					label="Deactivate"
-					onClick={onDeactivateClick}
+					label="Toggle Active"
+					onClick={onToggleActive}
 					className="p-button-sm p-button-secondary"
 					disabled={!selectedTrade}
 				/>

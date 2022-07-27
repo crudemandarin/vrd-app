@@ -2,15 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 
-import Util from "../utils/Util";
-import { TradeFormModel } from "../models/trade-form.model";
-import TradeService from "../services/trade.service";
-import TradeFormInfo from "../info/trade-form.info";
-import BasicTable from "../components/BasicTable";
-import AddTradeDialog from "../components/dialog/AddTradeDialog";
-import EditTradeDialog from "../components/dialog/EditTradeDialog";
+import Util from "../common/utils/Util";
+import { useApp } from "../common/stores/app.store";
+import BasicTable from "../common/components/BasicTable";
+import TradeService from "./trade.service";
+
+import { TradeFormModel } from "./trade.model";
+import TradeFormInfo from "./info/trade-form.info";
+import AddTradeDialog from "./dialogs/AddTradeDialog";
+import EditTradeDialog from "./dialogs/EditTradeDialog";
 
 const TradeEntry = () => {
+	const { token } = useApp();
+
 	const navigate = useNavigate();
 
 	const [trades, setTrades] = useState<TradeFormModel[]>([]);
@@ -40,7 +44,7 @@ const TradeEntry = () => {
 	const submitTrades = async (staged: TradeFormModel[]) => {
 		setIsSubmitting(true);
 		try {
-			const result = await TradeService.createTrades(trades);
+			const result = await TradeService.createTrades(trades, token);
 			console.log("result =", result);
 			navigate("/trade-submission", { state: { trades: staged } });
 		} catch (err) {
@@ -80,11 +84,7 @@ const TradeEntry = () => {
 
 	const renderError = () => {
 		if (!errorMsg) return undefined;
-		return (
-			<div className="error mb-2">
-				Failed to upload trades. Please try again.
-			</div>
-		);
+		return <div className="error mb-2">{errorMsg}</div>;
 	};
 
 	const renderEditDialog = () => {

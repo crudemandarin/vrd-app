@@ -3,9 +3,9 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
-import { TradeModel } from "../models/trade.model";
-import Error404 from "./Error404";
-import TradeFormInfo from "../info/trade-form.info";
+import Error404 from "../common/components/Error404";
+import { TradeModel } from "./trade.model";
+import TradeFormInfo from "./info/trade-form.info";
 
 interface LocationState {
 	trades: TradeModel[];
