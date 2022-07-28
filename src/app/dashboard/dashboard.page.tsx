@@ -67,8 +67,6 @@ const Dashboard = () => {
 	return (
 		<main>
 			<h2>Dashboard</h2>
-			<div className="s-1" />
-			<p>Welcome back, {user?.first_name}</p>
 
 			<div className="s-2" />
 

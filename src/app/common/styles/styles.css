@@ -1,10 +1,8 @@
-/* Display */
+/* Flex */
 
 .flex {
 	display: flex;
 }
-
-/* Flex */
 
 .flex-wrap {
 	flex-wrap: wrap;

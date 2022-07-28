@@ -1,8 +1,23 @@
 .hero {
-	width: 100vw;
-	height: 80vh;
+	width: 70vw;
+	height: 50vh;
 
 	display: flex;
-	justify-content: center;
 	align-items: center;
+}
+
+.hero > div {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+}
+
+.title {
+	font-size: 50px;
+	font-weight: 500;
+}
+
+.subtitle {
+	font-size: 20px;
+	color: grey;
 }

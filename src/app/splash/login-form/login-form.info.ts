@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { LoginFormModel } from "../auth/login-form.model";
+import { LoginFormModel } from "./login-form.model";
 
 class LoginFormInfo {
 	static getFormDefaults(): LoginFormModel {

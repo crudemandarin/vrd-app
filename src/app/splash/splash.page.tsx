@@ -1,12 +1,16 @@
+import LoginForm from "./login-form/LoginForm";
+
 import "./splash.styles.css";
 
 const Splash = () => {
 	return (
-		<main>
+		<main className="flex" style={{ justifyContent: "center" }}>
 			<div className="hero">
 				<div>
-					<h1>Virtual Risk Desk</h1>
-					An ETRM system.
+					<div className="title">Virtual Risk Desk</div>
+				</div>
+				<div>
+					<LoginForm />
 				</div>
 			</div>
 		</main>

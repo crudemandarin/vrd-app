@@ -1,4 +1,5 @@
 .header-banner {
+	height: 70px;
 	padding-inline: 50px;
 	display: flex;
 	justify-content: space-between;
@@ -6,7 +7,7 @@
 	background-color: rgb(200, 200, 200);
 }
 
-.title {
+.header-title {
 	display: block;
 	margin-block: 1rem;
 }
