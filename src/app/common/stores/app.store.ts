@@ -3,7 +3,6 @@ import { devtools, persist } from "zustand/middleware";
 
 import { User } from "../../auth/auth.model";
 import AuthService from "../../auth/auth.service";
-import { TradeModel } from "../../trade/trade.model";
 
 interface IAppStore {
 	loading: boolean;
@@ -12,8 +11,6 @@ interface IAppStore {
 	user: User | undefined;
 	login: (email: string, password: string) => Promise<void>;
 	logout: () => void;
-	trades: TradeModel[];
-	setTrades: (trades: TradeModel[]) => void;
 }
 
 export const useApp = create<IAppStore>()(
@@ -32,9 +29,7 @@ export const useApp = create<IAppStore>()(
 				logout: () => {
 					set({ token: "" });
 					set({ user: undefined });
-				},
-				trades: [],
-				setTrades: (trades) => set({ trades })
+				}
 			}),
 			{
 				name: "app-storage",

@@ -1,31 +1,28 @@
 import { Button } from "primereact/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 
 import { BASE_URL } from "../common/utils/config";
 import fetcher from "../common/utils/fetcher";
 import BasicTable from "../common/components/BasicTable";
 
-import TradeService from "../trade/trade.service";
-
 import { TradeModel, TradeFormModel } from "../trade/trade.model";
+import TradeService from "../trade/trade.service";
 import TradeInfo from "../trade/info/trade.info";
 import EditTradeDialog from "../trade/dialogs/EditTradeDialog";
 
 import { useApp } from "../common/stores/app.store";
 
 const Dashboard = () => {
-	const { token, trades, setTrades } = useApp();
+	const { token } = useApp();
+
 	const { data, mutate } = useSWR([`${BASE_URL}/trades`, token], fetcher);
+	const trades = data ? data.trades : [];
 
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
 		undefined
 	);
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
-
-	useEffect(() => {
-		if (data) setTrades(data.trades);
-	}, [data]);
 
 	const updateTrade = async (update: TradeFormModel) => {
 		const result = await TradeService.updateTrade(
@@ -91,7 +88,7 @@ const Dashboard = () => {
 			</div>
 			<div className="s-1" />
 			<BasicTable
-				rows={trades}
+				rows={trades ?? []}
 				columns={TradeInfo.getColumns()}
 				defaultColumns={TradeInfo.getDefaultColumns()}
 				selected={selectedTrade}

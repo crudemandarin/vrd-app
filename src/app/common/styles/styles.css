@@ -53,3 +53,39 @@
 .error {
 	color: rgb(240, 56, 56);
 }
+
+/* Header */
+
+.header-banner {
+	height: 70px;
+	padding-inline: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgb(200, 200, 200);
+}
+
+.header-title {
+	display: block;
+	margin-block: 1rem;
+}
+
+nav {
+	display: flex;
+	margin: 16px 50px;
+}
+
+nav > a {
+	margin-right: 16px;
+	padding: 8px 16px;
+	border-radius: 8px;
+	box-shadow: 2px 2px 8px lightgray;
+	background-color: white;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+nav > a.active {
+	background-color: lightblue;
+}
