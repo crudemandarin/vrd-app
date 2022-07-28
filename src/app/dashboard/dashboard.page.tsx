@@ -15,7 +15,7 @@ import EditTradeDialog from "../trade/dialogs/EditTradeDialog";
 import { useApp } from "../common/stores/app.store";
 
 const Dashboard = () => {
-	const { token, user, trades, setTrades } = useApp();
+	const { token, trades, setTrades } = useApp();
 	const { data, mutate } = useSWR([`${BASE_URL}/trades`, token], fetcher);
 
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
