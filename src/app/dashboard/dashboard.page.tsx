@@ -6,17 +6,22 @@ import { BASE_URL } from "../common/utils/config";
 import fetcher from "../common/utils/fetcher";
 import BasicTable from "../common/components/BasicTable";
 
+import { useApp } from "../common/stores/app.store";
+
 import { TradeModel, TradeFormModel } from "../trade/trade.model";
 import TradeService from "../trade/trade.service";
 import TradeInfo from "../trade/info/trade.info";
 import EditTradeDialog from "../trade/dialogs/EditTradeDialog";
 
-import { useApp } from "../common/stores/app.store";
-
 const Dashboard = () => {
-	const { token } = useApp();
+	const { token, logout } = useApp();
 
-	const { data, mutate } = useSWR([`${BASE_URL}/trades`, token], fetcher);
+	const { data, error, mutate } = useSWR(
+		[`${BASE_URL}/trades`, token],
+		fetcher
+	);
+
+	if (error?.response?.status === 401) logout();
 	const trades = data ? data.trades : [];
 
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(

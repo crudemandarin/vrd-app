@@ -1,7 +1,8 @@
+import jwtDecode from "jwt-decode";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { User } from "../../auth/auth.model";
+import { TokenPayloadModel, User } from "../../auth/auth.model";
 import AuthService from "../../auth/auth.service";
 
 interface IAppStore {
@@ -23,7 +24,8 @@ export const useApp = create<IAppStore>()(
 				user: undefined,
 				login: async (email, password) => {
 					set({ loading: true });
-					const { token, user } = await AuthService.login(email, password);
+					const { token } = await AuthService.login(email, password);
+					const { user } = jwtDecode<TokenPayloadModel>(token);
 					set({ loading: false, token, user });
 				},
 				logout: () => {

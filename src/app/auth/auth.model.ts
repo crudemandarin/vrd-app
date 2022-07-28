@@ -10,3 +10,10 @@ export interface User {
 	last_name: string;
 	email: string;
 }
+
+export interface TokenPayloadModel {
+	user: User;
+	iat: number;
+	exp: number;
+	iss: string;
+}

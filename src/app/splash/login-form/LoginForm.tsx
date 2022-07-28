@@ -1,5 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
 
 import { LoginFormModel } from "./login-form.model";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -70,7 +71,12 @@ const LoginForm = () => {
 							name="password"
 							control={control}
 							render={({ field }) => (
-								<InputText {...field} placeholder="Password" />
+								<Password
+									{...field}
+									placeholder="Password"
+									feedback={false}
+									toggleMask
+								/>
 							)}
 						/>
 					</div>
