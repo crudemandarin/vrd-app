@@ -4,7 +4,7 @@ import "./splash.styles.css";
 
 const Splash = () => {
 	return (
-		<main className="flex" style={{ justifyContent: "center" }}>
+		<main className="flex justify-content-center">
 			<div className="hero">
 				<div>
 					<div className="title">Virtual Risk Desk</div>

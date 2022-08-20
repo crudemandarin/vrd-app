@@ -103,7 +103,7 @@ const TradeEntry = () => {
 		<main>
 			<h2>Trade Entry</h2>
 			<div className="s-1" />
-			<p>Stage and submit trades</p>
+			<p>Create, edit, and stage up trades to be submitted to our system.</p>
 
 			<div className="s-2" />
 

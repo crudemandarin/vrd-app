@@ -28,7 +28,9 @@ const TradeSubmission = () => {
 		<main>
 			<h2>Submission Confirmation</h2>
 			<div className="s-1" />
-			<p>Your trades submission has been uploaded to our system.</p>
+			<p>
+				Your trades submission has been successfully uploaded to our system.
+			</p>
 
 			<div className="s-2" />
 

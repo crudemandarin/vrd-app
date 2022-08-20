@@ -1,6 +1,7 @@
-import jwtDecode from "jwt-decode";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
+
+import jwtDecode from "jwt-decode";
 
 import { TokenPayloadModel, User } from "../../auth/auth.model";
 import AuthService from "../../auth/auth.service";

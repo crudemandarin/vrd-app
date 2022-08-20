@@ -1,12 +1,14 @@
-import { Button } from "primereact/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import useSWR from "swr";
+
+import { Button } from "primereact/button";
 
 import { BASE_URL } from "../common/utils/config";
 import fetcher from "../common/utils/fetcher";
-import BasicTable from "../common/components/BasicTable";
-
 import { useApp } from "../common/stores/app.store";
+import BasicTable from "../common/components/BasicTable";
 
 import { TradeModel, TradeFormModel } from "../trade/trade.model";
 import TradeService from "../trade/trade.service";
@@ -14,6 +16,7 @@ import TradeInfo from "../trade/info/trade.info";
 import EditTradeDialog from "../trade/dialogs/EditTradeDialog";
 
 const Dashboard = () => {
+	const navigate = useNavigate();
 	const { token, logout } = useApp();
 
 	const { data, error, mutate } = useSWR(
@@ -22,7 +25,7 @@ const Dashboard = () => {
 	);
 
 	if (error?.response?.status === 401) logout();
-	const trades = data ? data.trades : [];
+	const trades: TradeModel[] = data ? data.trades : [];
 
 	const [selectedTrade, setSelectedTrade] = useState<TradeModel | undefined>(
 		undefined
@@ -30,22 +33,18 @@ const Dashboard = () => {
 	const [editDialogVisible, setEditDialogVisible] = useState(false);
 
 	const updateTrade = async (update: TradeFormModel) => {
-		const result = await TradeService.updateTrade(
-			update.trade_id,
-			update,
-			token
-		);
-		console.log("result =", result);
+		await TradeService.updateTrade(update.trade_id, update, token);
 		setSelectedTrade(undefined);
 		mutate();
 	};
 
 	const toggleActive = async (trade: TradeModel) => {
-		const result = await TradeService.toggleActive(trade.trade_id, token);
-		console.log("result =", result);
+		await TradeService.toggleActive(trade.trade_id, token);
 		setSelectedTrade(undefined);
 		mutate();
 	};
+
+	const onAddTradeClick = () => navigate("/trade-entry");
 
 	const onEditTradeClick = () => setEditDialogVisible(true);
 
@@ -78,6 +77,12 @@ const Dashboard = () => {
 
 			<div className="flex">
 				<Button
+					label="Add"
+					onClick={onAddTradeClick}
+					className="p-button-sm p-button-secondary"
+				/>
+				<div className="s-1" />
+				<Button
 					label="Edit"
 					onClick={onEditTradeClick}
 					className="p-button-sm p-button-secondary"
@@ -91,9 +96,11 @@ const Dashboard = () => {
 					disabled={!selectedTrade}
 				/>
 			</div>
+
 			<div className="s-1" />
+
 			<BasicTable
-				rows={trades ?? []}
+				rows={trades}
 				columns={TradeInfo.getColumns()}
 				defaultColumns={TradeInfo.getDefaultColumns()}
 				selected={selectedTrade}

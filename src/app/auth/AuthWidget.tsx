@@ -1,5 +1,4 @@
 import { Button } from "primereact/button";
-import { useEffect } from "react";
 import { useApp } from "../common/stores/app.store";
 
 const AuthWidget = () => {
@@ -8,7 +7,7 @@ const AuthWidget = () => {
 	if (!user || !token) return <div>Sign in to get started</div>;
 
 	return (
-		<div className="flex" style={{ alignItems: "center" }}>
+		<div className="flex align-items-center">
 			<div>Welcome back, {user.first_name}</div>
 			<div className="s-2" />
 			<Button label="Logout" onClick={logout} className="p-button-sm" />
